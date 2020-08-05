@@ -223,11 +223,11 @@ resource "aws_iam_policy_attachment" "additional_json" {
 # ARN of additional policy
 ###########################
 
-resource "aws_iam_policy_attachment" "additional_one" {
+resource "aws_iam_role_policy_attachment" "additional_one" {
   count = local.create_role && var.attach_policy ? 1 : 0
 
   name       = var.function_name
-  roles      = [aws_iam_role.lambda[0].name]
+  role       = aws_iam_role.lambda[0].name
   policy_arn = var.policy
 }
 
@@ -235,11 +235,11 @@ resource "aws_iam_policy_attachment" "additional_one" {
 # List of ARNs of additional policies
 ######################################
 
-resource "aws_iam_policy_attachment" "additional_many" {
+resource "aws_iam_role_policy_attachment" "additional_many" {
   count = local.create_role && var.attach_policies ? var.number_of_policies : 0
 
   name       = var.function_name
-  roles      = [aws_iam_role.lambda[0].name]
+  role       = aws_iam_role.lambda[0].name
   policy_arn = var.policies[count.index]
 }
 
