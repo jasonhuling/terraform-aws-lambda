@@ -226,7 +226,6 @@ resource "aws_iam_policy_attachment" "additional_json" {
 resource "aws_iam_role_policy_attachment" "additional_one" {
   count = local.create_role && var.attach_policy ? 1 : 0
 
-  name       = var.function_name
   role       = aws_iam_role.lambda[0].name
   policy_arn = var.policy
 }
@@ -238,7 +237,6 @@ resource "aws_iam_role_policy_attachment" "additional_one" {
 resource "aws_iam_role_policy_attachment" "additional_many" {
   count = local.create_role && var.attach_policies ? var.number_of_policies : 0
 
-  name       = var.function_name
   role       = aws_iam_role.lambda[0].name
   policy_arn = var.policies[count.index]
 }
